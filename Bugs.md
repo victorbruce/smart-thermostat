@@ -59,7 +59,7 @@ I used the `console.log()` method to help me print out some values in my browser
 
 **7. Root Cause**
 
-The root cause of this bug is that, the element `option` value is set to an **object** which is wrong. The element option value only accepts a **string** as a value.
+The root cause of this bug is that, the element `option` value is set to an **object** which is wrong. The element option value only accepts a **string** as a value. This was causing the `room` variable within the `setSelectedRoom` function to be **undefined** because the find method on the `rooms` variable **returns undefined** when no match is found.
 
 **8. Fix Summary**
 
