@@ -318,9 +318,14 @@ document.getElementById("save").addEventListener("click", () => {
     // Set current room's presets
     const currRoom = rooms.find((room) => room.name === selectedRoom);
 
-    currRoom.setColdPreset(coolInput.value);
-    currRoom.setWarmPreset(warmInput.value);
+    if (coolInput.value >= 10 && coolInput.value < 25) {
+      currRoom.setColdPreset(+coolInput.value);
+    }
 
+    if (warmInput.value > 25 && warmInput.value < 32) {
+      currRoom.setWarmPreset(+warmInput.value);
+    }
+    
     coolInput.value = "";
     warmInput.value = "";
   }
