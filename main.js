@@ -7,8 +7,8 @@ const rooms = [
     warmPreset: 32,
     image: "./assets/living-room.jpg",
     airConditionerOn: false,
-    startTime: '16:30',
-    endTime: '20:00',
+    startTime: "16:30",
+    endTime: "20:00",
 
     setCurrTemp(temp) {
       this.currTemp = temp;
@@ -42,8 +42,8 @@ const rooms = [
     warmPreset: 32,
     image: "./assets/kitchen.jpg",
     airConditionerOn: false,
-    startTime: '16:30',
-    endTime: '20:00',
+    startTime: "16:30",
+    endTime: "20:00",
 
     setCurrTemp(temp) {
       this.currTemp = temp;
@@ -77,8 +77,8 @@ const rooms = [
     warmPreset: 32,
     image: "./assets/bathroom.jpg",
     airConditionerOn: false,
-    startTime: '16:30',
-    endTime: '20:00',
+    startTime: "16:30",
+    endTime: "20:00",
 
     setCurrTemp(temp) {
       this.currTemp = temp;
@@ -112,8 +112,8 @@ const rooms = [
     warmPreset: 32,
     image: "./assets/bedroom.jpg",
     airConditionerOn: false,
-    startTime: '16:30',
-    endTime: '20:00',
+    startTime: "16:30",
+    endTime: "20:00",
 
     setCurrTemp(temp) {
       this.currTemp = temp;
@@ -142,7 +142,7 @@ const rooms = [
   },
 ];
 
-const warmOverlay= `linear-gradient(
+const warmOverlay = `linear-gradient(
     to bottom,
     rgba(141, 158, 247, 0.2),
     rgba(194, 197, 215, 0.1)
@@ -232,7 +232,6 @@ roomSelect.addEventListener("change", function () {
   setSelectedRoom(selectedRoom);
 });
 
-
 // Set preset temperatures
 const defaultSettings = document.querySelector(".default-settings");
 defaultSettings.addEventListener("click", function (e) {});
@@ -240,10 +239,11 @@ defaultSettings.addEventListener("click", function (e) {});
 // Increase and decrease temperature
 document.getElementById("increase").addEventListener("click", () => {
   const room = rooms.find((currRoom) => currRoom.name === selectedRoom);
-  const increaseRoomTemperature = room.increaseTemp;
 
   if (room.currTemp < 32) {
-    increaseRoomTemperature();
+    room.increaseTemp();
+  } else {
+    room.currTemp = 32;
   }
 
   setIndicatorPoint(room.currTemp);
@@ -261,10 +261,11 @@ document.getElementById("increase").addEventListener("click", () => {
 
 document.getElementById("reduce").addEventListener("click", () => {
   const room = rooms.find((currRoom) => currRoom.name === selectedRoom);
-  const decreaseRoomTemperature = room.decreaseTemp;
 
   if (room.currTemp > 10) {
-    decreaseRoomTemperature();
+    room.decreaseTemp();
+  } else {
+    room.currTemp = 10;
   }
 
   setIndicatorPoint(room.currTemp);
@@ -282,7 +283,6 @@ document.getElementById("reduce").addEventListener("click", () => {
 
 const coolBtn = document.getElementById("cool");
 const warmBtn = document.getElementById("warm");
-
 
 const inputsDiv = document.querySelector(".inputs");
 // Toggle preset inputs
@@ -397,8 +397,8 @@ const displayTime = (room) => {
         </div>
         <span class="time">${room.endTime}</span>
       </div>
-  `
-}
+  `;
+};
 
 generateRooms();
 
