@@ -261,10 +261,11 @@ document.getElementById("increase").addEventListener("click", () => {
 
 document.getElementById("reduce").addEventListener("click", () => {
   const room = rooms.find((currRoom) => currRoom.name === selectedRoom);
-  const decreaseRoomTemperature = room.decreaseTemp;
 
   if (room.currTemp > 10) {
-    decreaseRoomTemperature();
+    room.decreaseTemp();
+  } else {
+    room.currTemp = 10;
   }
 
   setIndicatorPoint(room.currTemp);
