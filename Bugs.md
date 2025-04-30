@@ -145,3 +145,66 @@ room.increaseTemp.bind(room);
 **9. Status**
 
 - ✅ Fixed
+
+## Bug 3: The visual communication for warm and cool overlay is improperly represented
+
+**1. Title**
+
+The visual communication for warm and cool overlay is improperly represented
+
+**2. Bug Description**
+
+Overlay color for representing cold and warm temperatures was not shown properly
+
+**_I expect_**:
+
+- temperature values from 10 to 24 to show a cool overlay color(a shade of light blue) whiles temperature values from 25 to 32 show a warm overlay color(a shade of light red)
+
+**_What actually happened_**:
+
+- temperature values from 10 to 24 shows a warm color overlay instead of cool and vice versa.
+
+**3. Steps to Reproduce**
+
+1. to show a warm overlay, decrease temperature to fall below 25 degrees celcius
+2. to show a cool overlay, increase temperature so that the value is above 24 degrees celcuis
+
+**4. Screenshots / Console Logs**
+
+- cool temperature showing warm overlay
+  ![cool temperature showing warm overlay](./screenshots/bug-3-visualcommunication-1.png)
+
+- warm temperature showing cool overlay
+  ![cool temperature showing warm overlay](./screenshots/bug-3-visualcommunication-2.png)
+
+**5. Environment Details**
+
+- Browser: Chrome
+- Browser Version: 135.0.7049.115 (Official Build) (x86_64)
+- OS: macOS Sonoma 14.5
+
+**6. Debugging Process**
+
+- used the developer console inspect tool to check the overlay color value for a particular room temperature.
+- I then noticed that the color value for the overlay wasn't correct
+- To resolve the issue, I interchanged the color values assigned to the varialbes `warmOverlay` and `coolOverlay`
+
+**7. Root Cause**
+
+Color values assigned to variables `warmOverlay` and `coolOverlay` were interchanged
+
+**8. Fix Summary**
+
+```js
+const coolOverlay = `linear-gradient(
+    to bottom,
+    rgba(141, 158, 247, 0.2),
+    rgba(194, 197, 215, 0.1)
+  )`;
+
+const warmOverlay = `linear-gradient(to bottom, rgba(236, 96, 98, 0.2), rgba(248, 210, 211, 0.13))`;
+```
+
+**9. Status**
+
+- ✅ Fixed
