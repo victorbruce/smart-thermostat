@@ -320,6 +320,7 @@ document.getElementById("save").addEventListener("click", () => {
 
     if (coolInput.value >= 10 && coolInput.value < 25) {
       currRoom.setColdPreset(+coolInput.value);
+
       errorSpan.innerText = "";
     } else {
       errorSpan.innerText = "Enter valid temperatures (10° - 32°)";
@@ -330,8 +331,13 @@ document.getElementById("save").addEventListener("click", () => {
       errorSpan.innerText = "";
     } else {
       errorSpan.innerText = "Enter valid temperatures (10° - 32°)";
+
     }
 
+    if (warmInput.value > 25 && warmInput.value < 32) {
+      currRoom.setWarmPreset(+warmInput.value);
+    }
+    
     coolInput.value = "";
     warmInput.value = "";
   }
