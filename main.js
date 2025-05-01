@@ -200,6 +200,7 @@ currentTemp.textContent = `${rooms[0].currTemp}°`;
 setInitialOverlay();
 
 document.querySelector(".currentTemp").innerText = `${rooms[0].currTemp}°`;
+
 // Add new options from rooms array
 rooms.forEach((room) => {
   const option = document.createElement("option");
@@ -234,7 +235,25 @@ roomSelect.addEventListener("change", function () {
 
 // Set preset temperatures
 const defaultSettings = document.querySelector(".default-settings");
-defaultSettings.addEventListener("click", function (e) {});
+
+defaultSettings.addEventListener("click", function (e) {
+  // ensure that nested elements inside the button are treated as clicks on the button itself
+  const clickedBtn = e.target.closest("#cool, #warm");
+  if (!clickedBtn) return;
+
+  // get the current selected room
+  const room = rooms.find((room) => room.name === selectedRoom);
+  if (!room) return;
+
+  // set preset and update current temp value when button is clicked
+  const preset = clickedBtn.id === "cool" ? room.coldPreset : room.warmPreset;
+  room.setCurrTemp(preset);
+
+  // update text
+  const tempText = `${room.currTemp}°`;
+  currentTemp.textContent = tempText;
+  document.querySelector(".currentTemp").innerText = tempText;
+});
 
 // Increase and decrease temperature
 document.getElementById("increase").addEventListener("click", () => {
@@ -331,7 +350,6 @@ document.getElementById("save").addEventListener("click", () => {
       errorSpan.innerText = "";
     } else {
       errorSpan.innerText = "Enter valid temperatures (10° - 32°)";
-
     }
 
     if (warmInput.value > 24 && warmInput.value < 32) {
