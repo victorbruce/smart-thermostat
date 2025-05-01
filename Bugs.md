@@ -8,6 +8,10 @@ Below are the list of bugs or issues identified within the **Smart Thermostat** 
 
 - [Bug 2: Increase and Decrease buttons do not reduce or increase room temperature](#bug-2-increase-and-decrease-buttons-do-not-reduce-or-increase-room-temperature)
 
+- [Bug 3: The visual communication for warm and cool overlay is improperly represented](#bug-3-the-visual-communication-for-warm-and-cool-overlay-is-improperly-represented)
+
+- [Bug 4: Incorrect display of error message when preset values are out of range](#bug-4-incorrect-display-of-error-message-when-preset-values-are-out-of-range)
+
 ## Bug 1: Selected dropdown option does not display the correct room and its associated data
 
 **1. Title**
@@ -37,8 +41,12 @@ When the select dropdown is clicked and an option is selected from the dropdown 
 - console log `roomSelect` variable
   ![console log roomSelect variable](./screenshots/bug-1-roomSelect.png)
 
+<hr />
+
 - console log `selectedRoom` variable
   ![consolog selectedRoom variable](./screenshots/bug-1-selectedRoom.png)
+
+<hr />
 
 - console log result of `selectedRoom` variable and **change event listener**
   ![results of console log](./screenshots/bug-1-selectedRoom-result.png)
@@ -94,7 +102,7 @@ When a user clicks on the "+" button, the temperature value does not change. The
 
 **_What actually happened_**:
 
-- when the buttons are clicked the temparture value should change accordinly.
+- when the buttons are clicked the temparture value does not change accordingly.
 
 **3. Steps to Reproduce**
 
@@ -103,11 +111,16 @@ When a user clicks on the "+" button, the temperature value does not change. The
 
 **4. Screenshots / Console Logs**
 
-- console log `increaseRoomTemperature` variable
   ![console log increaseRoomTemperature variable](./screenshots/bug-2-increase-temp.png)
 
-- `increaseRoomTemperature`results in dev console
+- **console log `increaseRoomTemperature`variable**
+
+
+<hr />
+
   ![increaseRoomTemperature in dev console](./screenshots/bug-2-increase-temp-result.png)
+
+- **`increaseRoomTemperature` results in dev console**
 
 **5. Environment Details**
 
@@ -171,11 +184,15 @@ Overlay color for representing cold and warm temperatures was not shown properly
 
 **4. Screenshots / Console Logs**
 
-- cool temperature showing warm overlay
-  ![cool temperature showing warm overlay](./screenshots/bug-3-visualcommunication-1.png)
+![cool temperature showing warm overlay](./screenshots/bug-3-visualcommunication-1.png)
 
-- warm temperature showing cool overlay
-  ![cool temperature showing warm overlay](./screenshots/bug-3-visualcommunication-2.png)
+- **cool temperature showing warm overlay**
+
+<hr />
+
+![cool temperature showing warm overlay](./screenshots/bug-3-visualcommunication-2.png)
+
+- **warm temperature showing cool overlay**
 
 **5. Environment Details**
 
@@ -203,6 +220,81 @@ const coolOverlay = `linear-gradient(
   )`;
 
 const warmOverlay = `linear-gradient(to bottom, rgba(236, 96, 98, 0.2), rgba(248, 210, 211, 0.13))`;
+```
+
+**9. Status**
+
+- ✅ Fixed
+
+## Bug 4: App only displays error message when temperature values are out of range and allows the update of wrong preset values
+
+**1. Title**
+
+App only displays error message when temperature values are out of range and allows the update of wrong preset values
+
+**2. Bug Description**
+
+when an incorrect range of values are entered for `coldPresets` and `warmPresets` the app allows the insertion or update of the selected room preset values with the incorrect values eventhough an error message is displayed.
+
+**_I expect_**:
+
+that when a wrong preset value is entered and saved, an error message is displayed and the wrong values are not inserted into the warm and cold preset properties of the selected room.
+
+**_What actually happened_**:
+
+- when wrong preset values are entered, an error message is displayed and the wrong values are also inserted into the object for the `coldPreset` and `warmPreset` properties.
+- also, in a scenario where wrong range of values are entered first and an error message is displayed; when correct ranges are entered after, the error message still stays in the ui and it is not cleared.
+
+**3. Steps to Reproduce**
+
+1. enter an out of range value for the coldPreset input field. Let's say 9
+2. enter an out of range value for the warmPreset input field. Let's say 33
+3. an error message gets displayed and the property value for coldPreset and warmPreset gets updated with the values 9 and 35 of type string respectively
+
+**4. Screenshots / Console Logs**
+
+![cool temperature showing warm overlay](./screenshots/bug-4-wrong-presets.png)
+
+- **wrong preset values are inserted into the current room object.**
+
+<hr />
+
+![cool temperature showing warm overlay](./screenshots/bug-4-allow-right-presets.png)
+
+- **only allow correct preset values to be inserted into the current room object and clear error message afterwards**
+
+**5. Environment Details**
+
+- Browser: Chrome
+- Browser Version: 135.0.7049.115 (Official Build) (x86_64)
+- OS: macOS Sonoma 14.5
+
+**6. Debugging Process**
+
+- added a `console.log(currRoom)` statement right after the preset values are set to see the values assigned to the current room properties
+- noticed that eventhough the preset values are wrong and an error message is displayed, the values are still set
+- added an if condition block statement to allow the setting of the preset values when the values entered are in range
+
+**7. Root Cause**
+
+No condition was set for when to set the cold and warm preset values. Hence, allowing any range of values to be set
+
+**8. Fix Summary**
+
+```js
+if (coolInput.value >= 10 && coolInput.value < 25) {
+  currRoom.setColdPreset(+coolInput.value);
+  errorSpan.innerText = "";
+} else {
+  errorSpan.innerText = "Enter valid temperatures (10° - 32°)";
+}
+
+if (warmInput.value > 24 && warmInput.value < 32) {
+  currRoom.setWarmPreset(+warmInput.value);
+  errorSpan.innerText = "";
+} else {
+  errorSpan.innerText = "Enter valid temperatures (10° - 32°)";
+}
 ```
 
 **9. Status**
