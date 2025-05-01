@@ -320,7 +320,6 @@ document.getElementById("save").addEventListener("click", () => {
 
     if (coolInput.value >= 10 && coolInput.value < 25) {
       currRoom.setColdPreset(+coolInput.value);
-<<<<<<< HEAD
 
       errorSpan.innerText = "";
     } else {
@@ -333,11 +332,6 @@ document.getElementById("save").addEventListener("click", () => {
     } else {
       errorSpan.innerText = "Enter valid temperatures (10° - 32°)";
 
-=======
-      errorSpan.innerText = "";
-    } else {
-      errorSpan.innerText = "Enter valid temperatures (10° - 32°)";
->>>>>>> 3f0a2e4... fix: clear error message when correct presets are provided
     }
 
     if (warmInput.value > 24 && warmInput.value < 32) {
