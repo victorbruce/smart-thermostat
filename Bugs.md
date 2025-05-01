@@ -12,6 +12,8 @@ Below are the list of bugs or issues identified within the **Smart Thermostat** 
 
 - [Bug 4: Incorrect display of error message when preset values are out of range](#bug-4-incorrect-display-of-error-message-when-preset-values-are-out-of-range)
 
+- [Bug 5: Incorrect text description when AC is turned on](#bug-5-incorrect-text-description-when-ac-is-turned-on)
+
 ## Bug 1: Selected dropdown option does not display the correct room and its associated data
 
 **1. Title**
@@ -111,14 +113,13 @@ When a user clicks on the "+" button, the temperature value does not change. The
 
 **4. Screenshots / Console Logs**
 
-  ![console log increaseRoomTemperature variable](./screenshots/bug-2-increase-temp.png)
+![console log increaseRoomTemperature variable](./screenshots/bug-2-increase-temp.png)
 
 - **console log `increaseRoomTemperature`variable**
 
-
 <hr />
 
-  ![increaseRoomTemperature in dev console](./screenshots/bug-2-increase-temp-result.png)
+![increaseRoomTemperature in dev console](./screenshots/bug-2-increase-temp-result.png)
 
 - **`increaseRoomTemperature` results in dev console**
 
@@ -295,6 +296,67 @@ if (warmInput.value > 24 && warmInput.value < 32) {
 } else {
   errorSpan.innerText = "Enter valid temperatures (10° - 32°)";
 }
+```
+
+**9. Status**
+
+- ✅ Fixed
+
+## Bug 5: Incorrect text description when AC is turned on
+
+**1. Title**
+
+Incorrect text description when AC is turned on
+
+**2. Bug Description**
+
+the text displayed when the AC power button is clicked is incorrect.
+
+**_I expect_**:
+
+that when the AC is powered on, the right text message is rendered
+
+**_What actually happened_**:
+
+When the temperature is cool, it shows a "warming room" message and vice versa upon clicking the AC power button.
+
+**3. Steps to Reproduce**
+
+1. click on the power button to turn AC on.
+2. text displayed does not correspond to the room temperature.
+
+**4. Screenshots / Console Logs**
+
+![wrong text message when ac is powered on](./screenshots/bug-5-wrong-text-msg.png)
+
+- **wrong temperature text message displayed when AC is powered on .**
+
+<hr />
+
+![wrong code](./screenshots/bug-5-wrong-code.png)
+
+- **incorrect ternary condition**
+
+**5. Environment Details**
+
+- Browser: Chrome
+- Browser Version: 135.0.7049.115 (Official Build) (x86_64)
+- OS: macOS Sonoma 14.5
+
+**6. Debugging Process**
+
+- inspected the text message being displayed when the AC is powered on and got the class name
+- using the find tool in VsCode, I searched for the class name for the text element
+- modified the condition statement which was incorrect.
+
+**7. Root Cause**
+
+Incorrect ternary codition statement.
+
+**8. Fix Summary**
+
+```js
+room.currTemp < 25 ? "Cooling room to: " : "Warming room to: ";
 ```
 
 **9. Status**
