@@ -451,7 +451,6 @@ document.addEventListener("DOMContentLoaded", () => {
     populateDropdown();
     generateRooms();
 
-    // ✅ Clear input fields
     roomNameInput.value = "";
     currTempInput.value = "";
     imageInput.value = "";
