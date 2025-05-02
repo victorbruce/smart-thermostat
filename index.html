@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="style.css" />
 
     <!-- JS -->
-    <script src="./main.js" defer></script>
+    <script type="module" src="./js/thermostat.js" defer></script>
 
     <title>Smart Home | Thermostat Widget</title>
   </head>
@@ -172,6 +172,22 @@
       <div
         class="container rooms-control animate__animated animate__fadeIn"
       ></div>
+    </div>
+
+    <!-- schedule modal -->
+    <div id="scheduleModal" class="modal hidden">
+      <div class="modal-content">
+        <span id="closeScheduleModal" class="close">&times;</span>
+        <h2>Schedule AC for Room</h2>
+
+        <label for="scheduleStart">Start Time:</label>
+        <input type="time" id="scheduleStart" required />
+
+        <label for="scheduleEnd">End Time:</label>
+        <input type="time" id="scheduleEnd" required />
+
+        <button id="saveSchedule">Save Schedule</button>
+      </div>
     </div>
 
     <!-- Ionicons -->
