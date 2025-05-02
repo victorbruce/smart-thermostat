@@ -213,6 +213,7 @@ rooms.forEach((room) => {
 
 const setSelectedRoom = (selectedRoom) => {
   const room = rooms.find((currRoom) => currRoom.name === selectedRoom);
+
   setIndicatorPoint(room.currTemp);
 
   //   set the current stats to current room temperature
@@ -452,4 +453,81 @@ document.querySelector(".rooms-control").addEventListener("click", (e) => {
   if (e.target.classList.contains("room-name")) {
     setSelectedRoom(e.target.parentNode.parentNode.id);
   }
+});
+
+const roomNameInput = document.getElementById("roomNameInput");
+const currTempInput = document.getElementById("currTempInput");
+const imageInput = document.getElementById("imageInput");
+const acCheckbox = document.getElementById("acCheckbox");
+
+const modal = document.getElementById("modal");
+const addRoomBtn = document.getElementById("add-room");
+const closeModal = document.getElementById("closeModal");
+const saveRoomBtn = document.getElementById("saveRoomBtn");
+
+function populateDropdown() {
+  roomSelect.innerHTML = "";
+  rooms.forEach((room) => {
+    const option = document.createElement("option");
+    option.value = room.name;
+    option.textContent = room.name;
+    roomSelect.appendChild(option);
+  });
+}
+
+addRoomBtn.addEventListener("click", () => {
+  modal.classList.remove("hidden");
+});
+
+closeModal.addEventListener("click", () => {
+  modal.classList.add("hidden");
+});
+
+saveRoomBtn.addEventListener("click", () => {
+  const temp = parseInt(currTempInput.value);
+
+  if (isNaN(temp) || temp < 10 || temp > 32) {
+    alert("Please enter a temperature from 10 to 32.");
+    return;
+  }
+
+  const room = {
+    name: roomNameInput.value,
+    currTemp: temp,
+    coldPreset: 20,
+    warmPreset: 32,
+    image: imageInput.value,
+    airConditionerOn: acCheckbox.checked,
+    startTime: "16:30",
+    endTime: "20:00",
+    setCurrTemp(temp) {
+      this.currTemp = temp;
+    },
+
+    setColdPreset(newCold) {
+      this.coldPreset = newCold;
+    },
+
+    setWarmPreset(newWarm) {
+      this.warmPreset = newWarm;
+    },
+
+    decreaseTemp() {
+      this.currTemp--;
+    },
+
+    increaseTemp() {
+      this.currTemp++;
+    },
+    toggleAircon() {
+      this.airConditionerOn
+        ? (this.airConditionerOn = false)
+        : (this.airConditionerOn = true);
+    },
+  };
+
+  rooms.push(room);
+  populateDropdown();
+  generateRooms();
+  modal.classList.add("hidden");
 });
