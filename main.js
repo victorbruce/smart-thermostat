@@ -455,11 +455,6 @@ document.querySelector(".rooms-control").addEventListener("click", (e) => {
   }
 });
 
-const roomNameInput = document.getElementById("roomNameInput");
-const currTempInput = document.getElementById("currTempInput");
-const imageInput = document.getElementById("imageInput");
-const acCheckbox = document.getElementById("acCheckbox");
-
 const modal = document.getElementById("modal");
 const addRoomBtn = document.getElementById("add-room");
 const closeModal = document.getElementById("closeModal");
@@ -484,7 +479,18 @@ closeModal.addEventListener("click", () => {
 });
 
 saveRoomBtn.addEventListener("click", () => {
+  const roomNameInput = document.getElementById("roomNameInput");
+  const currTempInput = document.getElementById("currTempInput");
+  const imageInput = document.getElementById("imageInput");
+  const acCheckbox = document.getElementById("acCheckbox");
+  const acStartTime = document.getElementById("acStartTime").value;
+  const acFinishTime = document.getElementById("acFinishTime").value;
   const temp = parseInt(currTempInput.value);
+
+  if (!roomNameInput || !currTempInput || !acStartTime || !acFinishTime) {
+    alert("Please fill in all required fields");
+    return;
+  }
 
   if (isNaN(temp) || temp < 10 || temp > 32) {
     alert("Please enter a temperature from 10 to 32.");
@@ -498,8 +504,8 @@ saveRoomBtn.addEventListener("click", () => {
     warmPreset: 32,
     image: imageInput.value,
     airConditionerOn: acCheckbox.checked,
-    startTime: "16:30",
-    endTime: "20:00",
+    startTime: acStartTime,
+    endTime: acFinishTime,
     setCurrTemp(temp) {
       this.currTemp = temp;
     },
@@ -527,7 +533,51 @@ saveRoomBtn.addEventListener("click", () => {
   };
 
   rooms.push(room);
+  scheduleAC(room);
   populateDropdown();
   generateRooms();
   modal.classList.add("hidden");
 });
+
+function scheduleAC(room) {
+  const [startHour, startMinute] = room.startTime.split(":").map(Number);
+  const [endHour, endMinute] = room.endTime.split(":").map(Number);
+
+  // Check current time at regular intervals
+  setInterval(function () {
+    const currentTime = new Date();
+    const currentHour = currentTime.getHours();
+    const currentMinute = currentTime.getMinutes();
+
+    const isStartTime =
+      currentHour === startHour && currentMinute === startMinute;
+    const isEndTime = currentHour === endHour && currentMinute === endMinute;
+
+    // turn AC on if it is start time and ac is off
+    if (isStartTime && !room.airConditionerOn) {
+      room.toggleAircon();
+      generateRooms();
+      showToast(`${room.name} AC is now ON`);
+    }
+
+    // turn AC off if it is end time and ac is on
+    if (isEndTime && room.airConditionerOn) {
+      // Turn the AC off
+      room.toggleAircon();
+      generateRooms();
+      showToast(`${room.name} AC is now OFF`);
+    }
+  }, 60000); // Check every minute
+}
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  toast.classList.remove("hidden");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    toast.classList.add("hidden");
+  }, 4000);
+}
