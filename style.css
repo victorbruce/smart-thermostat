@@ -584,3 +584,128 @@ span.room-status {
 .bulk-ac-btn:hover {
   background-color: #6b7ff0;
 }
+
+/* ---------- Tablet (768px and below) ---------- */
+@media (max-width: 768px) and (max-width: 1024px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .inputs {
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .inputs input {
+    width: 120px;
+  }
+
+  .buttons {
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .default-settings {
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+  }
+
+  .time-display {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .modal-content__btns {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .top-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .top-content__controls {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .room .text {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+  }
+}
+
+/* ---------- Mobile (480px and below) ---------- */
+@media (max-width: 480px) {
+  #temp {
+    font-size: 48px;
+  }
+
+  .inputs {
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .inputs input {
+    width: 100px;
+  }
+
+  .buttons {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .time-display {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .modal-content__btns {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .default-settings {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .top-content {
+    text-align: center;
+    gap: 15px;
+  }
+
+  .room .text {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
+  }
+}
