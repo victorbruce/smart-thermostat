@@ -399,7 +399,7 @@ span.room-status {
   align-items: center;
   gap: 1px;
   border: none;
-  padding: 4px 8px;
+  padding: 8px 8px;
   border-radius: 4px;
   background-color: #eaeaeb;
   transition: background-color 0.2s ease-in;
@@ -568,4 +568,19 @@ span.room-status {
 
 .toast.show {
   opacity: 1;
+}
+
+.bulk-ac-btn {
+  padding: 8px 16px;
+  border: none;
+  background-color: var(--cool-blue);
+  color: #fff;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+}
+
+.bulk-ac-btn:hover {
+  background-color: #6b7ff0;
 }
