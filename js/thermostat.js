@@ -6,158 +6,52 @@ import {
   decreaseTemp as reduceTemp,
   increaseTemp as raiseTemp,
   toggleAircon as switchAircon,
-} from './room.js';
+} from "./room.js";
 
 // Room objects
 document.addEventListener("DOMContentLoaded", () => {
   let rooms = [
-    createRoom("Living Room", 32, 20, 32, "./assets/living-room.jpg", false, "16:30", "20:00"),
-    createRoom("Kitchen", 29, 20, 32, "./assets/kitchen.jpg", false, "16:30", "20:00"),
-    createRoom("Bathroom", 30, 20, 32, "./assets/bathroom.jpg", false, "16:30", "20:00"),
-    createRoom("Bedroom", 31, 20, 32, "./assets/bedroom.jpg", false, "16:30", "20:00"),
+    createRoom(
+      "Living Room",
+      32,
+      20,
+      32,
+      "./assets/living-room.jpg",
+      false,
+      "16:30",
+      "20:00"
+    ),
+    createRoom(
+      "Kitchen",
+      29,
+      20,
+      32,
+      "./assets/kitchen.jpg",
+      false,
+      "16:30",
+      "20:00"
+    ),
+    createRoom(
+      "Bathroom",
+      30,
+      20,
+      32,
+      "./assets/bathroom.jpg",
+      false,
+      "16:30",
+      "20:00"
+    ),
+    createRoom(
+      "Bedroom",
+      31,
+      20,
+      32,
+      "./assets/bedroom.jpg",
+      false,
+      "16:30",
+      "20:00"
+    ),
   ];
-  // const rooms = [
-  //   {
-  //     name: "Living Room",
-  //     currTemp: 32,
-  //     coldPreset: 20,
-  //     warmPreset: 32,
-  //     image: "./assets/living-room.jpg",
-  //     airConditionerOn: false,
-  //     startTime: "16:30",
-  //     endTime: "20:00",
-
-  //     setCurrTemp(temp) {
-  //       this.currTemp = temp;
-  //     },
-
-  //     setColdPreset(newCold) {
-  //       this.coldPreset = newCold;
-  //     },
-
-  //     setWarmPreset(newWarm) {
-  //       this.warmPreset = newWarm;
-  //     },
-
-  //     decreaseTemp() {
-  //       this.currTemp--;
-  //     },
-
-  //     increaseTemp() {
-  //       this.currTemp++;
-  //     },
-  //     toggleAircon() {
-  //       this.airConditionerOn
-  //         ? (this.airConditionerOn = false)
-  //         : (this.airConditionerOn = true);
-  //     },
-  //   },
-  //   {
-  //     name: "Kitchen",
-  //     currTemp: 29,
-  //     coldPreset: 20,
-  //     warmPreset: 32,
-  //     image: "./assets/kitchen.jpg",
-  //     airConditionerOn: false,
-  //     startTime: "16:30",
-  //     endTime: "20:00",
-
-  //     setCurrTemp(temp) {
-  //       this.currTemp = temp;
-  //     },
-
-  //     setColdPreset(newCold) {
-  //       this.coldPreset = newCold;
-  //     },
-
-  //     setWarmPreset(newWarm) {
-  //       this.warmPreset = newWarm;
-  //     },
-
-  //     decreaseTemp() {
-  //       this.currTemp--;
-  //     },
-
-  //     increaseTemp() {
-  //       this.currTemp++;
-  //     },
-  //     toggleAircon() {
-  //       this.airConditionerOn
-  //         ? (this.airConditionerOn = false)
-  //         : (this.airConditionerOn = true);
-  //     },
-  //   },
-  //   {
-  //     name: "Bathroom",
-  //     currTemp: 30,
-  //     coldPreset: 20,
-  //     warmPreset: 32,
-  //     image: "./assets/bathroom.jpg",
-  //     airConditionerOn: false,
-  //     startTime: "16:30",
-  //     endTime: "20:00",
-
-  //     setCurrTemp(temp) {
-  //       this.currTemp = temp;
-  //     },
-
-  //     setColdPreset(newCold) {
-  //       this.coldPreset = newCold;
-  //     },
-
-  //     setWarmPreset(newWarm) {
-  //       this.warmPreset = newWarm;
-  //     },
-
-  //     decreaseTemp() {
-  //       this.currTemp--;
-  //     },
-
-  //     increaseTemp() {
-  //       this.currTemp++;
-  //     },
-  //     toggleAircon() {
-  //       this.airConditionerOn
-  //         ? (this.airConditionerOn = false)
-  //         : (this.airConditionerOn = true);
-  //     },
-  //   },
-  //   {
-  //     name: "Bedroom",
-  //     currTemp: 31,
-  //     coldPreset: 20,
-  //     warmPreset: 32,
-  //     image: "./assets/bedroom.jpg",
-  //     airConditionerOn: false,
-  //     startTime: "16:30",
-  //     endTime: "20:00",
-
-  //     setCurrTemp(temp) {
-  //       this.currTemp = temp;
-  //     },
-
-  //     setColdPreset(newCold) {
-  //       this.coldPreset = newCold;
-  //     },
-
-  //     setWarmPreset(newWarm) {
-  //       this.warmPreset = newWarm;
-  //     },
-
-  //     decreaseTemp() {
-  //       this.currTemp--;
-  //     },
-
-  //     increaseTemp() {
-  //       this.currTemp++;
-  //     },
-  //     toggleAircon() {
-  //       this.airConditionerOn
-  //         ? (this.airConditionerOn = false)
-  //         : (this.airConditionerOn = true);
-  //     },
-  //   },
-  // ];
 
   const coolOverlay = `linear-gradient(
     to bottom,
@@ -556,6 +450,15 @@ document.addEventListener("DOMContentLoaded", () => {
     scheduleAC(room);
     populateDropdown();
     generateRooms();
+
+    // ✅ Clear input fields
+    roomNameInput.value = "";
+    currTempInput.value = "";
+    imageInput.value = "";
+    acCheckbox.checked = false;
+    document.getElementById("acStartTime").value = "";
+    document.getElementById("acFinishTime").value = "";
+
     modal.classList.add("hidden");
   });
 
