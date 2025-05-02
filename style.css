@@ -295,6 +295,28 @@ svg.point {
   border-bottom: solid 1px #e7e7e7;
 }
 
+.room-control__btns {
+  display: flex;
+  gap: 6px;
+}
+
+.schedule {
+  padding: 8px 16px;
+  border: none;
+  background-color: var(--cool-blue);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+}
+
+.icon-time {
+  color: white;
+}
+
+.schedule:hover {
+  background-color: #6b7ff0;
+}
+
 .room-control:first-child {
   padding-top: 0;
 }
@@ -518,12 +540,12 @@ span.room-status {
   transition: background-color 0.2s ease-in-out;
 }
 
-#saveRoomBtn {
+#saveRoomBtn, #saveSchedule {
   background-color: var(--cool-blue);
   color: #ffffff;
 }
 
-#saveRoomBtn:hover {
+#saveRoomBtn:hover, #saveSchedule:hover {
   background-color: #3348b1;
 }
 
@@ -709,3 +731,43 @@ span.room-status {
     gap: 5px;
   }
 }
+
+.close {
+  position: relative;
+  background-color: #ccc;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  width: 18px;
+  text-align: center;
+  border-radius: 4px;
+  margin-left: auto;
+}
+
+/* .modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 300px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+} */
