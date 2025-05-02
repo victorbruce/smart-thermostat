@@ -1,3 +1,1 @@
-describe('Thermostat', () => {
-	
-})
+describe('', () => {})
