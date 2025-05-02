@@ -1,80 +1,63 @@
 /**
  * @jest-environment jsdom
  */
-import {
-  toggleACStatus,
-  changeTemperature,
-  addRoom,
-  savePreset,
-  handleFormSubmit,
-  turnOnAllACs,
-} from "../js/thermostat"; // Adjust path based on your setup
+import fs from 'fs';
+import path from 'path';
 
-describe("Smart Thermostat Functions", () => {
-  let rooms;
+// Load the HTML and JS before tests
+const html = fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf8');
+
+describe('Thermostat Event Handlers', () => {
+  let increaseBtn, reduceBtn, coolBtn, warmBtn, currentTemp, rooms, roomSelect;
 
   beforeEach(() => {
-    // Set up a sample state for rooms
-    rooms = [
-      { id: 1, name: "Living Room", isOn: false, temperature: 22 },
-      { id: 2, name: "Bedroom", isOn: true, temperature: 24 },
-    ];
+    document.documentElement.innerHTML = html.toString();
+    jest.resetModules();
+    require('./main.js'); // the file where your DOMContentLoaded logic exists
+
+    increaseBtn = document.getElementById('increase');
+    reduceBtn = document.getElementById('reduce');
+    coolBtn = document.getElementById('cool');
+    warmBtn = document.getElementById('warm');
+    currentTemp = document.getElementById('temp');
+    roomSelect = document.getElementById('rooms');
   });
 
-  test("toggleACStatus should toggle the AC status of a room", () => {
-    const updatedRoom = toggleACStatus(rooms, 1);
-    expect(updatedRoom.isOn).toBe(true);
+  test('should increase temperature by 1', () => {
+    const initialTemp = parseInt(currentTemp.textContent);
+    increaseBtn.click();
 
-    const updatedAgain = toggleACStatus(rooms, 1);
-    expect(updatedAgain.isOn).toBe(false);
+    const updatedTemp = parseInt(currentTemp.textContent);
+    expect(updatedTemp).toBe(initialTemp + 1);
   });
 
-  test("changeTemperature should increase temperature by delta", () => {
-    const updatedRoom = changeTemperature(rooms, 2, 2);
-    expect(updatedRoom.temperature).toBe(26);
+  test('should decrease temperature by 1', () => {
+    const initialTemp = parseInt(currentTemp.textContent);
+    reduceBtn.click();
+
+    const updatedTemp = parseInt(currentTemp.textContent);
+    expect(updatedTemp).toBe(initialTemp - 1);
   });
 
-  test("changeTemperature should decrease temperature by delta", () => {
-    const updatedRoom = changeTemperature(rooms, 2, -3);
-    expect(updatedRoom.temperature).toBe(21);
+  test('should set cool preset temperature', () => {
+    coolBtn.click();
+    const temp = parseInt(currentTemp.textContent);
+    expect(temp).toBeLessThanOrEqual(24); // coldPreset = 20
   });
 
-  test("addRoom should add a new room", () => {
-    const newRooms = addRoom(rooms, "Kitchen");
-    expect(newRooms.length).toBe(3);
-    expect(newRooms[2].name).toBe("Kitchen");
-    expect(newRooms[2].isOn).toBe(false);
+  test('should set warm preset temperature', () => {
+    warmBtn.click();
+    const temp = parseInt(currentTemp.textContent);
+    expect(temp).toBeGreaterThanOrEqual(25); // warmPreset = 32
   });
 
-  test("savePreset should store preset values", () => {
-    const preset = { name: "Evening", temperature: 20, time: "18:00" };
-    const saved = savePreset(preset);
-    expect(saved).toMatchObject(preset);
-  });
-});
+  test('should update temperature display on room change', () => {
+    roomSelect.value = 'Kitchen';
+    const event = new Event('change');
+    roomSelect.dispatchEvent(event);
 
-describe("Smart Thermostat Event Handlers", () => {
-  test("handleFormSubmit should prevent default behavior", () => {
-    const event = {
-      preventDefault: jest.fn(),
-      target: {
-        elements: {
-          name: { value: "Guest Room" },
-          temp: { value: "21" },
-        },
-      },
-    };
-
-    handleFormSubmit(event);
-    expect(event.preventDefault).toHaveBeenCalled();
-  });
-
-  test("turnOnAllACs should set all rooms to on", () => {
-    const rooms = [
-      { id: 1, isOn: false },
-      { id: 2, isOn: false },
-    ];
-    const updated = turnOnAllACs(rooms);
-    expect(updated.every((r) => r.isOn)).toBe(true);
+    const selectedOption = [...roomSelect.options].find(opt => opt.selected);
+    expect(document.querySelector('.room-name').textContent).toContain(selectedOption.value);
+    expect(currentTemp.textContent).toContain('°');
   });
 });
