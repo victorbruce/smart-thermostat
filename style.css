@@ -473,6 +473,22 @@ span.room-status {
   transition: border 0.2s ease-in-out, background 0.2s ease-in-out;
 }
 
+.modal-content input[type="time"] {
+  padding: 8px 5px;
+  width: 100%;
+  background-color: #f6f6f6;
+  border: 1px solid var(--text-secondary);
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  outline: none;
+  margin-top: 5px;
+}
+
+.modal-content input[type="time"]:focus {
+  border-color: var(--cool-blue);
+}
+
 .modal-content input:focus {
   border-color: var(--cool-blue);
   background-color: #ffffff;
@@ -501,7 +517,6 @@ span.room-status {
   border: none;
   transition: background-color 0.2s ease-in-out;
 }
-
 
 #saveRoomBtn {
   background-color: var(--cool-blue);
@@ -534,4 +549,23 @@ span.room-status {
     transform: scale(1);
     opacity: 1;
   }
+}
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.toast.show {
+  opacity: 1;
 }

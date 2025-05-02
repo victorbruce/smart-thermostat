@@ -27,6 +27,7 @@
     <title>Smart Home | Thermostat Widget</title>
   </head>
   <body>
+    <div id="toast" class="toast hidden"></div>
     <div class="main-container">
       <div class="container animate__animated animate__fadeInUp">
         <div class="top-content">
@@ -60,6 +61,14 @@
             <div>
               <label>Image URL:</label>
               <input type="text" id="imageInput" />
+            </div>
+            <div>
+              <label>Start Time:</label>
+              <input type="time" id="acStartTime" />
+            </div>
+            <div>
+              <label>Finish Time:</label>
+              <input type="time" id="acFinishTime" />
             </div>
             <div>
               <label>AC On:</label>
