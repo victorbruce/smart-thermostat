@@ -31,7 +31,45 @@
       <div class="container animate__animated animate__fadeInUp">
         <div class="top-content">
           <h1 class="logo">Thermostat</h1>
-          <select id="rooms"></select>
+          <div class="top-content__controls">
+            <select id="rooms"></select>
+            <button id="add-room">
+              Add Room
+              <ion-icon name="add-circle" class="add-room-icon"></ion-icon>
+            </button>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div id="modal" class="modal hidden">
+          <div class="modal-content">
+            <h3>Add New Room</h3>
+            <div>
+              <label>Name:</label>
+              <input type="text" id="roomNameInput" required />
+            </div>
+            <div>
+              <label>Current Temp:</label>
+              <input
+                type="number"
+                id="currTempInput"
+                min="10"
+                max="32"
+                required
+              />
+            </div>
+            <div>
+              <label>Image URL:</label>
+              <input type="text" id="imageInput" />
+            </div>
+            <div>
+              <label>AC On:</label>
+              <input type="checkbox" id="acCheckbox" />
+            </div>
+            <div class="modal-content__btns">
+              <button id="saveRoomBtn" type="button">Save Room</button>
+              <button id="closeModal" type="button">Cancel</button>
+            </div>
+          </div>
         </div>
         <!-- Interior card -->
         <div class="room">

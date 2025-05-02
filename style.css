@@ -269,10 +269,6 @@ svg.point {
   transition: background-color 0.3s ease-in-out;
 }
 
-.hidden {
-  display: none;
-}
-
 .room {
   width: 100%;
   height: 200px;
@@ -390,4 +386,152 @@ span.room-status {
   /* border: solid 1px pink; */
   margin: 20px 0 0 0;
   color: #7c7c83;
+}
+
+.top-content__controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#add-room {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: #eaeaeb;
+  transition: background-color 0.2s ease-in;
+}
+
+#add-room:hover {
+  cursor: pointer;
+  background-color: #c2c2c2;
+}
+
+.add-room-icon {
+  color: currentColor;
+  font-size: 18px;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal h3 {
+  text-align: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  width: 300px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: fadeInScale 0.3s ease;
+}
+
+.modal-content h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+.modal-content div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modal-content label {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="number"] {
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  background-color: #f6f6f6;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s ease-in-out, background 0.2s ease-in-out;
+}
+
+.modal-content input:focus {
+  border-color: var(--cool-blue);
+  background-color: #ffffff;
+}
+
+.modal-content input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+.modal-content__btns {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.modal-content button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+
+#saveRoomBtn {
+  background-color: var(--cool-blue);
+  color: #ffffff;
+}
+
+#saveRoomBtn:hover {
+  background-color: #3348b1;
+}
+
+#closeModal {
+  background-color: #eaeaeb;
+  color: var(--text-primary);
+}
+
+#closeModal:hover {
+  background-color: #d4d4d4;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadeInScale {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
