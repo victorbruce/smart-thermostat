@@ -581,3 +581,14 @@ function showToast(message) {
     toast.classList.add("hidden");
   }, 4000);
 }
+
+
+document.getElementById("turnOnAllACs").addEventListener("click", () => {
+  rooms.forEach((room) => {
+    if (!room.airConditioner) {
+      room.toggleAircon();
+    }
+  });
+  generateRooms(); // Refresh UI
+  showToast("All ACs are now ON");
+});
